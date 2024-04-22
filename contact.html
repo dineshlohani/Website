@@ -200,11 +200,11 @@
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
         // Initialize Email JS with your user ID
-        emailjs.init('v9mawmo1wvYYdBRcd');
+        emailjs.init('YOUR_USER_ID');
         
         // Function to send email
-        function sendEmail(e) {
-            e.preventDefault(); // Prevent form submission
+        function sendEmail(event) {
+            event.preventDefault(); // Prevent form submission
             
             // Get form values
             var fullName = document.getElementById('form-floating-1').value;
@@ -212,24 +212,37 @@
             var subject = document.getElementById('form-floating-3').value;
             var message = document.getElementById('form-floating-4').value;
             
-            // Send email
-            emailjs.send("service_s86u7jv", "template_9i7k3f5", {
-                user_name: fullName,
-                user_email: email,
-                user_subject: subject,
-                message: message
-            })
-            .then(function(response) {
-                console.log('Email sent:', response);
-                alert('Your message has been sent successfully!');
-                document.getElementById('form-floating-1').value = '';
-            document.getElementById('form-floating-2').value = '';
-            document.getElementById('form-floating-3').value = '';
-            document.getElementById('form-floating-4').value = '';
-            }, function(error) {
-                console.error('Email send failed:', error);
-                alert('Oops! Something went wrong. Please try again later.');
+            // Check for inappropriate words
+            var forbiddenWords = ['fuck', 'sex', 'porn']; // Add more if needed
+            var containsForbiddenWord = forbiddenWords.some(word => {
+                return fullName.toLowerCase().includes(word) ||
+                       email.toLowerCase().includes(word) ||
+                       subject.toLowerCase().includes(word) ||
+                       message.toLowerCase().includes(word);
             });
+
+            if (containsForbiddenWord) {
+                alert('Please refrain from using inappropriate language.');
+            } else {
+                // Send email
+                emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+                    user_name: fullName,
+                    user_email: email,
+                    user_subject: subject,
+                    message: message
+                }).then(function(response) {
+                    console.log('Email sent:', response);
+                    alert('Your message has been sent successfully!');
+                    // Clear form inputs after successful submission
+                    document.getElementById('form-floating-1').value = '';
+                    document.getElementById('form-floating-2').value = '';
+                    document.getElementById('form-floating-3').value = '';
+                    document.getElementById('form-floating-4').value = '';
+                }, function(error) {
+                    console.error('Email send failed:', error);
+                    alert('Oops! Something went wrong. Please try again later.');
+                });
+            }
         }
     </script>
     <!-- Contact End -->
