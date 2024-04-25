@@ -213,7 +213,7 @@
             var message = document.getElementById('form-floating-4').value;
             
             // Check for inappropriate words
-            var forbiddenWords = ['fuck', 'sex', 'porn','kill']; // Add more if needed
+            var forbiddenWords = ['fuck', 'sex', 'porn']; // Add more if needed
             var containsForbiddenWord = forbiddenWords.some(word => {
                 return fullName.toLowerCase().includes(word) ||
                        email.toLowerCase().includes(word) ||
@@ -225,7 +225,7 @@
                 alert('Please refrain from using inappropriate language.');
             } else {
                 // Send email
-                emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+                emailjs.send("service_s86u7jv", "template_9i7k3f5", {
                     user_name: fullName,
                     user_email: email,
                     user_subject: subject,
